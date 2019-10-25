@@ -103,6 +103,3 @@ shell_exec('start explorer '.str_replace("/","\\",$here));
 shell_exec('start "" cmd /c "echo Done. You can find the extracted repo at '.str_replace("/","\\",$here).'.&echo(&pause"');
 ?>
 
-shell_exec('start explorer '.str_replace("/","\\",$here));
-shell_exec('start "" cmd /c "echo Done. You can find the extracted repo at '.str_replace("/","\\",$here).'.&echo(&pause"');
-?>
