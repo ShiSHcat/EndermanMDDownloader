@@ -10,8 +10,6 @@ function get__($user,$repo) {
         $url = "https://api.github.com/repos/".$res."/git/trees/master?recursive=1";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
         'User-Agent:PHP/1.0'
@@ -20,7 +18,6 @@ function get__($user,$repo) {
         ]);
         $return_ = json_decode(curl_exec($ch),true);
         curl_close($ch);
-      
         return $return_;
     }    
     
@@ -74,7 +71,9 @@ $r = new GithubLinks();
 foreach($r->get("Endermanch","MalwareDatabase",true)as$k=>$v){
     if(is_array($v)){
         foreach($v as $_k=>$_v){
+            echo "Downloading  $_k...";
             copy($_v,$_k);
+            echo "Done!\n";
             aunzip($_k);
         }
     }else{
@@ -82,6 +81,7 @@ foreach($r->get("Endermanch","MalwareDatabase",true)as$k=>$v){
         aunzip($_k);
 }}
 function aunzip($name) {
+    echo "Unzipping $n...";
     $n = explode(".",$name)[0];
     $zip = new ZipArchive();
 if ($zip->open($name) === true) {
@@ -92,7 +92,7 @@ if ($zip->open($name) === true) {
     $zip->close();
 }
     unlink($name);
-    echo "Downloaded and unpacked $n.";
+    echo "Done!\n";
 }
 
 shell_exec('start explorer '.str_replace("/","\\",$here));
