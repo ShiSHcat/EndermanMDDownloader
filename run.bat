@@ -1,0 +1,1 @@
+start %cd%\PHP\php.exe index.php
